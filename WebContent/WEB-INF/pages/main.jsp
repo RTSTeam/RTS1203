@@ -109,56 +109,65 @@
         		</tr>
       		</thead>
       		<tbody>
-        		<tr ng-repeat="user in users">
-        			<td>{{user.ticketID}}</td>
-          		    <td>{{user.departureStationName}}</td>
-          			<td>{{user.arrivalStationName}}</td>
-          			<td>{{user.departureYear}}-{{user.departureMonth}}-{{user.departureDay}}&nbsp;{{user.departureHour}}:{{user.departureMinute}}</td>
-          			<td>{{user.arrivalYear}}-{{user.arrivalMonth}}-{{user.arrivalDay}}&nbsp;{{user.arrivalHour}}:{{user.arrivalMinute}}</td>
-          			<td>{{user.price}} Dollars</td>
+        		<tr ng-repeat="ticket in tickets">
+        			<td>{{ticket.ticketID}}</td>
+          		    <td>{{ticket.departureStationName}}</td>
+          			<td>{{ticket.arrivalStationName}}</td>
+          			<td>{{ticket.departureYear}}-{{ticket.departureMonth}}-{{ticket.departureDay}}&nbsp;{{ticket.departureHour}}:{{ticket.departureMinute}}</td>
+          			<td>{{ticket.arrivalYear}}-{{ticket.arrivalMonth}}-{{ticket.arrivalDay}}&nbsp;{{ticket.arrivalHour}}:{{ticket.arrivalMinute}}</td>
+          			<td>{{(user.adultsValue + user.seniorsValue + user.childrenValue) * ticket.price}} Dollars</td>
           			<td>
           				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Buy</button>
+						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    	<div class="modal-dialog">
+					    		<div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+							        <h4 class="modal-title" id="myModalLabel">Enter Credit Card Information:</h4>
+							      </div>
+							      <div class="modal-body">
+							      	<form role="form">
+									  <div class="form-group">
+									    <label for="cardNumber">Credit Card Number</label>
+									    <input type="text" class="form-control" ng-model="card.cardNumber" id="cardNumber" placeholder="Enter Card Number">
+									  </div>
+									  <div class="form-group">
+									    <label for="csv">CSV</label>
+									    <input type="password" class="form-control" ng-model="card.csv" id="csv" placeholder="CSV">
+									  </div>
+									  <div class="form-group">
+									    <label for="holdername">Holder Name</label>
+									    <input type="password" class="form-control" ng-model="card.holderName" id="holdername" placeholder="Card Holder Name">
+									  </div>
+									  <div class="form-group">
+									    <select ng-model="card.month" name="month" data-card-expiration required>
+									      <option disabled selected value="">Month</option>
+									    </select>
+									    <select ng-model="card.year" name="year" required>
+									      <option disabled selected value="">Year</option>
+									    </select>
+									  </div>
+									  <div class="form-group">
+									    <label for="ticketid">{{ticket.ticketID}}</label>
+									  </div>
+									</form>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        <button type="button" class="btn btn-primary" ng-click="checkout(user, 'ajaxResult')">Confirmed</button>
+							      </div>
+					    		</div>
+					  		</div>
+					    </div>
 					</td>
+					
         		</tr>
       		</tbody>
 		</table>
 	</div>
 	
 	<!-- Credit Card Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    	<div class="modal-dialog">
-    		<div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Enter Credit Card Information:</h4>
-		      </div>
-		      <div class="modal-body">
-		      	<form role="form">
-				  <div class="form-group">
-				    <label for="cardNumber">Card Number</label>
-				    <input type="text" class="form-control" ng-model="card.cardNumber" id="cardNumber" placeholder="Enter Card Number">
-				  </div>
-				  <div class="form-group">
-				    <label for="csv">CSV</label>
-				    <input type="password" class="form-control" ng-model="card.csv" id="csv" placeholder="CSV">
-				  </div>
-				  <div class="form-group">
-				    <select ng-model="card.month" name="month" data-card-expiration required>
-				      <option disabled selected value="">Month</option>
-				    </select>
-				    <select ng-model="card.year" name="year" required>
-				      <option disabled selected value="">Year</option>
-				    </select>
-				  </div>
-				</form>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" ng-click="checkout(user, 'ajaxResult')">Confirmed</button>
-		      </div>
-    		</div>
-  		</div>
-    </div>
+	
    
 	</tab>
     <!-- <tab heading="History" ng-click="getAlert()">  -->

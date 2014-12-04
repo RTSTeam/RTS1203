@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TicketInfo {
 	private List<Ticket> tickets;
 
-	@XmlElement(name="user")
+	@XmlElement(name="ticket")
 	public List<Ticket> getTickets() {
 		return tickets;
 	}

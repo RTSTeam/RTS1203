@@ -35,19 +35,19 @@ app.controller('SearchCtrl', function ($scope, $window, $http) {
 			childrenValue: 0
 	};
 
-	$scope.users = [];
+	$scope.tickets = [];
 	$scope.canShow = false;
 	//	core function
-	$scope.submitData = function (user, resultVarName) {
+	$scope.submitData = function (ticket, resultVarName) {
 		var params = $.param({ 	
-			tripType: user.tripType,
-			departureStationValue: user.departureStationValue,
-			arrivalStationValue: user.arrivalStationValue,
-			departureDate: user.departureDate,
-			departureTime: user.departureTime,
-			adultsValue: user.adultsValue,
-			seniorsValue: user.seniorsValue,
-			childrenValue: user.childrenValue
+			tripType: ticket.tripType,
+			departureStationValue: ticket.departureStationValue,
+			arrivalStationValue: ticket.arrivalStationValue,
+			departureDate: ticket.departureDate,
+			departureTime: ticket.departureTime,
+			adultsValue: ticket.adultsValue,
+			seniorsValue: ticket.seniorsValue,
+			childrenValue: ticket.childrenValue
 		});
 		$http({
 			method: "POST",
@@ -56,14 +56,14 @@ app.controller('SearchCtrl', function ($scope, $window, $http) {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function (data, status, headers, config) {
 			$scope[resultVarName] = data;
-			if(angular.isArray(data.user)){
-				$scope.users = data.user;
+			if(angular.isArray(data.ticket)){
+				$scope.tickets = data.ticket;
 				$scope.canShow = true;
-			} else if(data.user==null){
+			} else if(data.ticket==null){
 				$scope.canShow = false;
 			}
 			else{
-				$scope.users[0]=data.user;
+				$scope.tickets[0]=data.ticket;
 				$scope.canShow = true;
 			}
 			//$scope.users = data.user;
