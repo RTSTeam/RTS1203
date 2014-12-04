@@ -13,7 +13,8 @@
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	
 	<!--
     <link rel="stylesheet" href="http://mgcrea.github.io/angular-strap/styles/angular-motion.min.css">
@@ -98,6 +99,7 @@
 		<table table class="table table-hover">
 			<thead>
         		<tr>
+        			<th>Ticket ID</th>
 		            <th>From</th>
 		            <th>To</th>
 		            <th>Departure Time</th>
@@ -108,16 +110,56 @@
       		</thead>
       		<tbody>
         		<tr ng-repeat="user in users">
+        			<td>{{user.ticketID}}</td>
           		    <td>{{user.departureStationName}}</td>
           			<td>{{user.arrivalStationName}}</td>
           			<td>{{user.departureYear}}-{{user.departureMonth}}-{{user.departureDay}}&nbsp;{{user.departureHour}}:{{user.departureMinute}}</td>
           			<td>{{user.arrivalYear}}-{{user.arrivalMonth}}-{{user.arrivalDay}}&nbsp;{{user.arrivalHour}}:{{user.arrivalMinute}}</td>
           			<td>{{user.price}} Dollars</td>
-          			<td><button >Buy </button></td>
+          			<td>
+          				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Buy</button>
+					</td>
         		</tr>
       		</tbody>
 		</table>
 	</div>
+	
+	<!-- Credit Card Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Enter Credit Card Information:</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<form role="form">
+				  <div class="form-group">
+				    <label for="cardNumber">Card Number</label>
+				    <input type="text" class="form-control" ng-model="card.cardNumber" id="cardNumber" placeholder="Enter Card Number">
+				  </div>
+				  <div class="form-group">
+				    <label for="csv">CSV</label>
+				    <input type="password" class="form-control" ng-model="card.csv" id="csv" placeholder="CSV">
+				  </div>
+				  <div class="form-group">
+				    <select ng-model="card.month" name="month" data-card-expiration required>
+				      <option disabled selected value="">Month</option>
+				    </select>
+				    <select ng-model="card.year" name="year" required>
+				      <option disabled selected value="">Year</option>
+				    </select>
+				  </div>
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" ng-click="checkout(user, 'ajaxResult')">Confirmed</button>
+		      </div>
+    		</div>
+  		</div>
+    </div>
+   
 	</tab>
     <!-- <tab heading="History" ng-click="getAlert()">  -->
 	

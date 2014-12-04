@@ -58,18 +58,22 @@ app.controller('SearchCtrl', function ($scope, $window, $http) {
 			$scope[resultVarName] = data;
 			if(angular.isArray(data.user)){
 				$scope.users = data.user;
+				$scope.canShow = true;
+			} else if(data.user==null){
+				$scope.canShow = false;
 			}
-			
 			else{
 				$scope.users[0]=data.user;
+				$scope.canShow = true;
 			}
 			//$scope.users = data.user;
-			$scope.canShow = true;
+			
 		}).error(function (data, status, headers, config) {
 			$scope[resultVarName] = "SUBMIT ERROR";
 		});
 	};
 	
+	// Transactions
 	$scope.transactions = [];
 	$scope.getTransactionData = function (useridinput, resultVarName) {
 		var params = $.param({ 	
